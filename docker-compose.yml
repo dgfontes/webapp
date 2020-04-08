@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  reverse-proxy:
+    container_name: reverse-proxy
+    hostname: reverse-proxy
+    build: ./reverse-proxy
+    restart: always    
+    ports:
+      - "80:80"
+      - "443:443"
+  web-server:
+    depends_on:
+      - reverse-proxy
+    container_name: web-server
+    hostname: web-server
+    build: ./web-server
+    restart: always
+    ports:
+      - "8080:80"
+      - "8443:443"
